@@ -1,17 +1,12 @@
+import React from 'react';
+import Button from './ui/button';
 
-import useAuthData from "./auth-provider";
+interface LoginButtonProps {
+  onLogin: () => void;
+}
 
-const LoginButton = () => {
-  const authData = useAuthData();
- const loginWithEmail= authData?.loginWithEmail
-  const handleLogin = async () => {
-    if (loginWithEmail) {
-      await loginWithEmail('user@example.com', 'password');
-    }
-  };
-
-  return <button onClick={handleLogin}>Login</button>;
+const LoginButton: React.FC<LoginButtonProps> = ({ onLogin }) => {
+  return <Button onClick={onLogin}>Login</Button>;
 };
-
 
 export default LoginButton;
