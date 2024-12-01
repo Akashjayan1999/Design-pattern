@@ -4,14 +4,20 @@ import useAuthData from '@/components/auth-provider';
 import LoginButton from '@/components/login-button';
 import LogoutButton from '@/components/logout-button';
 import { UserProfile } from '@/models/user-profile';
-const AuthContainer: React.FC = () => {
-  const authData = useAuthData();
-  const isAuthenticated = authData?.isAuthenticated;
+import { log } from 'console';
+import withAuth from '@/hoc/with-auth';
 
-  const logout = authData?.logout;
-  const loginWithEmail= authData?.loginWithEmail
+export interface AuthContainerProps {
+  isAuthenticated: boolean;
+  loginWithEmail: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+}
+const AuthContainer: React.FC<AuthContainerProps> = ({ isAuthenticated, loginWithEmail, logout }) => {
+
   const handleLogin = async () => {
+   
     if (loginWithEmail) {
+      console.log('Login clicked');
       await loginWithEmail('user@example.com', 'password');
       const userProfile = UserProfile.Builder
       .setName('user')
@@ -22,7 +28,7 @@ const AuthContainer: React.FC = () => {
      console.log(userProfile.toString());
     }
   };
-  const handleLogout = logout ? logout : () => console.warn('Logout function is not available');
+  const handleLogout = ()=>logout();
   return (
     <div>
       {isAuthenticated ? (
@@ -37,4 +43,4 @@ const AuthContainer: React.FC = () => {
   );
 };
 
-export default AuthContainer;
+export default withAuth(AuthContainer);
