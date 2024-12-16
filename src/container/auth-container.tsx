@@ -6,7 +6,8 @@ import LogoutButton from '@/components/logout-button';
 import { UserProfile } from '@/models/user-profile';
 import { log } from 'console';
 import withAuth from '@/hoc/with-auth';
-
+import treeData from '@/utils/tree-data';
+import TreeNode from '@/components/tree-node';
 export interface AuthContainerProps {
   isAuthenticated: boolean;
   loginWithEmail: (email: string, password: string) => Promise<void>;
@@ -34,8 +35,15 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ isAuthenticated, loginWit
       {isAuthenticated ? (
         <>
         <p>Welcome back, user!</p>
+        <div>Your tree data:</div>
+        <div>
+        {treeData.map((node) => (
+        <TreeNode key={node.id} node={node} />
+      ))}
         <LogoutButton onLogout={handleLogout}/>
+        </div> 
         </>
+       
       ) : (
         <LoginButton onLogin={handleLogin} />
       )}
