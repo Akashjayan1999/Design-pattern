@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import useAuthData from '@/components/auth-provider';
 import { AuthContainerProps } from '@/container/auth-container';

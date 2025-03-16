@@ -1,4 +1,4 @@
-
+'use client'
 import React from 'react';
 import useAuthData from '@/components/auth-provider';
 import LoginButton from '@/components/login-button';
@@ -8,6 +8,7 @@ import { log } from 'console';
 import withAuth from '@/hoc/with-auth';
 import treeData from '@/utils/tree-data';
 import TreeNode from '@/components/tree-node';
+import CompoundComponentModal from '@/components/compound-component-modal';
 export interface AuthContainerProps {
   isAuthenticated: boolean;
   loginWithEmail: (email: string, password: string) => Promise<void>;
@@ -40,6 +41,7 @@ const AuthContainer: React.FC<AuthContainerProps> = ({ isAuthenticated, loginWit
         {treeData.map((node) => (
         <TreeNode key={node.id} node={node} />
       ))}
+        <CompoundComponentModal/>
         <LogoutButton onLogout={handleLogout}/>
         </div> 
         </>
